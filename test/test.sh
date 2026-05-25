@@ -4,7 +4,7 @@ do
     read input
     case $input in 
     hello)
-        echo "HELLO WHAT CAN I DO FOR YOU..."
+        echo "HELLO WHAT CAN I DO FOR YOU...."
         ;;
     bye) 
         echo "THANKS BYE...."
