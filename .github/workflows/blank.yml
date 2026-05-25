@@ -8,50 +8,29 @@ on:
 
 jobs:
 
-  # ========================
-  # 1. BUILD / CHECK SCRIPT
-  # ========================
-  build:
+  build-test-deploy:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Checkout once only
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # 2. Show structure
       - name: Show files
         run: ls -R
 
+      # 3. Syntax check (FAST)
       - name: Check shell script syntax
         run: bash -n test/test.sh
 
+      # 4. Run script
+      - name: Run tests
+        run: |
+          chmod +x test/test.sh
+          ./test/test.sh
 
-  # ========================
-  # 2. RUN TESTS
-  # ========================
-  test:
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Make script executable
-        run: chmod +x test/test.sh
-
-      - name: Run script
-        run: ./test/test.sh
-
-
-  # ========================
-  # 3. DEPLOY (SIMULATION)
-  # ========================
-  deploy:
-    runs-on: ubuntu-latest
-    needs: test
-    if: github.ref == 'refs/heads/main'
-
-    steps:
-      - uses: actions/checkout@v4
-
+      # 5. Deploy (simulation)
       - name: Deploy step (demo)
+        if: github.ref == 'refs/heads/main'
         run: echo "Deploying application..."
