@@ -1,21 +1,19 @@
-#!/bin/sh
-
-echo "Please talk to me ..."
+echo "Please talk to me..."
 while :
 do
-  read INPUT_STRING
-  case $INPUT_STRING in
-	hello)
-		echo "Hello yourself!"
-		;;
-	bye)
-		echo "See you again!"
-		break
-		;;
-	*)
-		echo "Sorry, I don't understand"
-		;;
-  esac
-done
+    read input
+    case $input in 
+    hello)
+        echo "HELLO WHAT CAN I DO FOR YOU..."
+        ;;
+    bye) 
+        echo "THANKS BYE..."
+        break
+        ;;
+    *)
+        echo "SORRY, I DONT UNDERSTAND :)"
+        ;;
+    esac    
+done   
 echo 
-echo "That's all folks!"
+echo "That's all folks!" 
