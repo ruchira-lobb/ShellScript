@@ -7,7 +7,7 @@ do
         echo "HELLO WHAT CAN I DO FOR YOU..."
         ;;
     bye) 
-        echo "THANKS BYE..."
+        echo "THANKS BYE...."
         break
         ;;
     *)
