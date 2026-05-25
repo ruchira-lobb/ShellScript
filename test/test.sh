@@ -11,7 +11,7 @@ do
         break
         ;;
     *)
-        echo "SORRY, I DONT UNDERSTAND :)"
+        echo "SORRY, I DONT UNDERSTAND :):)"
         ;;
     esac    
 done   
