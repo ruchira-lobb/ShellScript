@@ -1,36 +1,19 @@
-name: ShellScript CI/CD Pipeline
+name: ShellScript CI
 
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
-
-  build-test-deploy:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout once only
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      # 2. Show structure
-      - name: Show files
-        run: ls -R
-
-      # 3. Syntax check (FAST)
-      - name: Check shell script syntax
+      - name: Check syntax
         run: bash -n test/test.sh
 
-      # 4. Run script
-      - name: Run tests
+      - name: Run script (simulated input)
         run: |
-          chmod +x test/test.sh
-          ./test/test.sh
-
-      # 5. Deploy (simulation)
-      - name: Deploy step (demo)
-        if: github.ref == 'refs/heads/main'
-        run: echo "Deploying application..."
+          echo -e "hello\nbye" | ./test/test.sh
