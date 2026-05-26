@@ -1,19 +1,75 @@
-name: ShellScript CI
+name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
-  test:
+  build:
+    name: Build Stage
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-      - name: Check syntax
-        run: bash -n test/test.sh
-
-      - name: Run script (simulated input)
+      - name: Start Build
         run: |
+          echo "=============================="
+          echo "Build process started..."
+          echo "Installing dependencies..."
+          sleep 2
+          echo " Building application..."
+          sleep 2
+          echo " Build completed successfully!"
+          echo "=============================="
+
+  test:
+    name: Test Stage
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run Syntax Check
+        run: |
+          echo "=============================="
+          echo " Running syntax checks..."
+          bash -n test/test.sh
+          echo " Syntax check passed!"
+          echo "=============================="
+
+      - name: Run Script Test
+        run: |
+          echo "=============================="
+          echo " Running application tests..."
           echo -e "hello\nbye" | ./test/test.sh
+          echo " Tests completed successfully!"
+          echo "=============================="
+
+  deploy:
+    name: Deploy Stage
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy Application
+        run: |
+          echo "=============================="
+          echo " Deployment started..."
+          sleep 2
+          echo " Preparing deployment package..."
+          sleep 2
+          echo " Deploying code to server..."
+          sleep 3
+          echo " Verifying deployment..."
+          sleep 2
+          echo " Application deployed successfully!"
+          echo " Your app is now live."
+          echo "=============================="
